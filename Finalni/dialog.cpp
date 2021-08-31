@@ -94,6 +94,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
      animation[0] = new QPropertyAnimation(label[0],"geometry");
      animation[0]->setDuration(3000);
      animation[0]->setStartValue(label[0]->geometry());
+     animation[0]->setKeyValueAt(0.3,QRect(155,50,50,50));
      animation[0]->setEndValue(QRect(155,300,50,50));
      animation[0]->start();
 
@@ -107,6 +108,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
      animation[1] = new QPropertyAnimation(label[1],"geometry");
      animation[1]->setDuration(3000);
      animation[1]->setStartValue(label[1]->geometry());
+     animation[1]->setKeyValueAt(0.3,QRect(215,50,50,50));
      animation[1]->setEndValue(QRect(215,300,50,50));
      animation[1]->start();
 
@@ -118,6 +120,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
      animation[2] = new QPropertyAnimation(label[2],"geometry");
      animation[2]->setDuration(3000);
      animation[2]->setStartValue(label[2]->geometry());
+     animation[2]->setKeyValueAt(0.3,QRect(275,50,50,50));
      animation[2]->setEndValue(QRect(275,300,50,50));
      animation[2]->start();
 
@@ -128,6 +131,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
      animation[3] = new QPropertyAnimation(label[3],"geometry");
      animation[3]->setDuration(3000);
      animation[3]->setStartValue(label[3]->geometry());
+     animation[3]->setKeyValueAt(0.3,QRect(335,50,50,50));
      animation[3]->setEndValue(QRect(335,300,50,50));
      animation[3]->start();
 
@@ -138,6 +142,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
      animation[4] = new QPropertyAnimation(label[4],"geometry");
      animation[4]->setDuration(3000);
      animation[4]->setStartValue(label[4]->geometry());
+     animation[4]->setKeyValueAt(0.3,QRect(395,50,50,50));
      animation[4]->setEndValue(QRect(395,300,50,50));
      animation[4]->start();
 
@@ -154,6 +159,7 @@ void Dialog::pomjeriElementPotrosaca()
     animation[5] = new QPropertyAnimation(label[0],"geometry");
     animation[5]->setDuration(3000);
     animation[5]->setStartValue(label[0]->geometry());
+    animation[5]->setKeyValueAt(0.3,QRect(155,50,50,50));
     animation[5]->setEndValue(QRect(500,30,50,50));
     animation[5]->start();
 
@@ -163,6 +169,7 @@ void Dialog::pomjeriElementPotrosaca()
     animation[6] = new QPropertyAnimation(label[1],"geometry");
     animation[6]->setDuration(3000);
     animation[6]->setStartValue(label[1]->geometry());
+    animation[6]->setKeyValueAt(0.3,QRect(215,50,50,50));
     animation[6]->setEndValue(QRect(500,30,50,50));
     animation[6]->start();
 
@@ -175,6 +182,7 @@ void Dialog::pomjeriElementPotrosaca()
     animation[7] = new QPropertyAnimation(label[2],"geometry");
     animation[7]->setDuration(3000);
     animation[7]->setStartValue(label[2]->geometry());
+    animation[7]->setKeyValueAt(0.3,QRect(275,50,50,50));
     animation[7]->setEndValue(QRect(500,30,50,50));
     animation[7]->start();
 
@@ -187,6 +195,7 @@ void Dialog::pomjeriElementPotrosaca()
     animation[8] = new QPropertyAnimation(label[3],"geometry");
     animation[8]->setDuration(3000);
     animation[8]->setStartValue(label[3]->geometry());
+    animation[8]->setKeyValueAt(0.3,QRect(335,50,50,50));
     animation[8]->setEndValue(QRect(500,30,50,50));
     animation[8]->start();
 
@@ -199,6 +208,7 @@ void Dialog::pomjeriElementPotrosaca()
     animation[9] = new QPropertyAnimation(label[4],"geometry");
     animation[9]->setDuration(3000);
     animation[9]->setStartValue(label[4]->geometry());
+    animation[9]->setKeyValueAt(0.3,QRect(395,50,50,50));
     animation[9]->setEndValue(QRect(500,30,50,50));
     animation[9]->start();
 
