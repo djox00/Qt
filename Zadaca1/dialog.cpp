@@ -10,9 +10,9 @@ Dialog::Dialog(QWidget *parent) :
 
 
 lwdialog = new QDialog(this);
-tbdialog = new QDialog(this);
+tbdialog = new QDialog(this);    // pravimo nova 3 prozora za list view, table view i tree view 
 trdialog = new QDialog(this);
-lview = new QListView(lwdialog);        // deklaracija objekata
+lview = new QListView(lwdialog);        // pravimo unutar prozora list view, table view i tree view 
 tbview = new QTableView(tbdialog);
 trview = new QTreeView(trdialog);
 
@@ -21,7 +21,7 @@ lview->setGeometry(10,35,350,140);
 lwdialog->setWindowTitle("ListView Dialog");
 tbdialog->setGeometry(1148,667,370,230);
 tbview->setGeometry(10,35,350,140);
-tbdialog->setWindowTitle("TableView Dialog");                                                           // dimenzije prozora
+tbdialog->setWindowTitle("TableView Dialog");                                                           // podesavamo dimenzije prozora
 trdialog->setGeometry(1148,405,370,230);
 trview->setGeometry(10,35,350,140);
 trdialog->setWindowTitle("TreeView Dialog");
@@ -33,7 +33,7 @@ listviewLabel->setGeometry(10,5,130,30);
 
 tableviewLabel = new QLabel(tbdialog);
 tableviewLabel->setText("TableView");
-tableviewLabel->setStyleSheet("font-size: 20px; font-weight: bold; color: black");       // natipisi u dialozima
+tableviewLabel->setStyleSheet("font-size: 20px; font-weight: bold; color: black");       // natipisi u prozorima 
 tableviewLabel->setGeometry(10,5,130,30);
 
 treeviewLabel = new QLabel(trdialog);
@@ -44,7 +44,7 @@ treeviewLabel->setGeometry(10,5,130,30);
 add = new QPushButton(lwdialog);
 remove = new QPushButton(lwdialog);
 add->setText("add");
-remove->setText("remove");                    // add remove buttoni
+remove->setText("remove");                    // add remove buttoni  i njihove dimnzije i polozaji u prozorima 
 add->setGeometry(70,190,75,30);
 remove->setGeometry(230,190,75,30);
 
@@ -72,7 +72,7 @@ remove2->setObjectName("remove2");
       stringlist.append("Semir Celikovic");
       stringlist.append("Dino Mocic");
       stringlist.append("Mirza Dizdarevic");
-      stringlist.append("Dzeneta Gutic");
+      stringlist.append("Dzeneta Gutic");      // u model dodajemo studente da budu prikazani kada otvorimo program
       stringlist.append("Silvio Marjanovic");
       stringlist.append("Ajla Halilovic");
       stringlist.append("Tarik Jasarevic");
@@ -90,7 +90,7 @@ remove2->setObjectName("remove2");
     connect(ui->Table_button,QPushButton::clicked,this,&Dialog::btnclicked);
     connect(ui->Tree_button,QPushButton::clicked,this,&Dialog::btnclicked);
     QObject::connect(add, SIGNAL(clicked()),this, SLOT(addclicked()));
-    QObject::connect(remove, SIGNAL(clicked()),this, SLOT(removeclicked()));
+    QObject::connect(remove, SIGNAL(clicked()),this, SLOT(removeclicked()));   // povezujemo signale add i remove buttona s slotovima 
     QObject::connect(add1, SIGNAL(clicked()),this, SLOT(addclicked()));
     QObject::connect(remove1, SIGNAL(clicked()),this, SLOT(removeclicked()));
     QObject::connect(add2, SIGNAL(clicked()),this, SLOT(addclicked()));
@@ -107,15 +107,15 @@ Dialog::~Dialog()
 void Dialog::addclicked() {
 
     bool ok;
-        QString temp = QInputDialog::getText(this,"Unos","Unesite studenta:",QLineEdit::Normal,QString(),&ok);
+        QString temp = QInputDialog::getText(this,"Unos","Unesite studenta:",QLineEdit::Normal,QString(),&ok);   // otvara novi prozorcic gdje unosimo ime studenta 
 
 
         if (ok) {
             if(temp.isEmpty()) return;
             if(stringmodel.insertRow(stringmodel.rowCount())){
-                 QModelIndex index=stringmodel.index((stringmodel.rowCount()-1),0);
+                 QModelIndex index=stringmodel.index((stringmodel.rowCount()-1),0);    // ovde dodaje tog studenta na kraj liste i na kraju azurira sve modele 
                  stringmodel.setData(index,temp);
-                 lview->setModel(&stringmodel);
+                 lview->setModel(&stringmodel);    
                  tbview->setModel(&stringmodel);
                  trview->setModel(&stringmodel);
 
@@ -127,7 +127,7 @@ void Dialog::addclicked() {
 
 void Dialog::removeclicked() {
 
-     QPushButton *btn = qobject_cast<QPushButton*>(sender());
+     QPushButton *btn = qobject_cast<QPushButton*>(sender());  // kada kliknemo remove ono uzima index tj oznacenog studenta iz tog prozora i brise ga iz stringlist modela i na kraju azurira model 
 if (btn->objectName()=="remove") {
 
     QModelIndex index= lview->currentIndex();
