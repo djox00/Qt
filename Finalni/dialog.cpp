@@ -3,28 +3,28 @@
 #include "consts.h"
 
 char buffer[BufferSize];
-QSemaphore slobodniBajti(BufferSize);
-QSemaphore iskoristeniBajti;
+QSemaphore slobodniBajti(BufferSize);      
+QSemaphore iskoristeniBajti;   
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    mProizvodjac=new Proizvodjac(this);
+    mProizvodjac=new Proizvodjac(this);   // pravimo objekte proizvodjac i potrosac 
     mPotrosac=new Potrosac(this);
 
     mProizvodjac->start();
-    mPotrosac->start();
+    mPotrosac->start();   // pokrecemo threadove 
 
     ProizvodjacT = new QTimer(this);
-    PotrosacT = new QTimer(this);
+    PotrosacT = new QTimer(this);   // pravimo timere za proizvodjaca i potrosaca 
 
 
 connect(mPotrosac,SIGNAL(promjenaPotrosenih(int)),this,SLOT(promjenjenaVrijednostPotrosaca(int)));
 connect(mProizvodjac,SIGNAL(promjenaProizvedenih(int)),this,SLOT(promjenjenaVrijednostProizvodjaca(int)));
 connect(mProizvodjac,SIGNAL(promjenaNapunjenihBuffera(int)),this,SLOT(promjenjenaVrijednostBuffera(int)));
-connect(mPotrosac,SIGNAL(promjenaNapunjenihBuffera(int)),this,SLOT(promjenjenaVrijednostBuffera(int)));
+connect(mPotrosac,SIGNAL(promjenaNapunjenihBuffera(int)),this,SLOT(promjenjenaVrijednostBuffera(int)));   // povezujemo slotove i signale 
 connect(mProizvodjac,SIGNAL(sendslovo(char)),this,SLOT(primislovo(char)));
 
 
@@ -35,13 +35,13 @@ Dialog::~Dialog()
     delete ui;
 }
 
-void Dialog::primislovo(char slovo){
+void Dialog::primislovo(char slovo){     // slot koji prima slova od proizvodjaca tako da mozemo postavljati to slovo na kockice 
 
     s = slovo;
     }
 void Dialog::promjenjenaVrijednostBuffera(int broj)
 {
-broj_buffera = broj;
+broj_buffera = broj;      // prikazuje trenutno stanje buffera 
 
 }
 
@@ -56,10 +56,10 @@ if(broj_buffera<5) {
     int br=broj%5;
  QPixmap labelpixmap(50,50);
 labelpixmap.fill(Qt::yellow);
-labelPainter[br] = new QPainter(&labelpixmap);
+labelPainter[br] = new QPainter(&labelpixmap);   // ovaj dio koda sluzi da napravi kocku zutu koja ce se kasnije kretati u buffer 
 labelPainter[br]->setPen(Qt::black);
 label[br] = new QLabel(this);
-labelPainter[br]->drawText(labelpixmap.rect(),Qt::AlignCenter,s);
+labelPainter[br]->drawText(labelpixmap.rect(),Qt::AlignCenter,s);   
 label[br]->setPixmap(labelpixmap);
 label[br]->setGeometry(50,50,50,50);
 label[br]->show();
@@ -68,19 +68,19 @@ labelPainter[br]->end();
 
 
 
-ProizvodjacT->singleShot(100,this,SLOT(pomjeriElementProizvodjaca()));
+ProizvodjacT->singleShot(100,this,SLOT(pomjeriElementProizvodjaca()));   // salje se signal pomocu timera a zatim pokrece animaciju u donjem dijelu koda 
 
 
 
 }
-else {qDebug()<<"Buffer pun!";}
+else {qDebug()<<"Buffer pun!";}  // ako se buffer napuni ova greska iskoci 
 }
 
 
 void Dialog::promjenjenaVrijednostPotrosaca(int broj)
 {
 
-PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
+PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));  // u isto vrijeme pokrece se i ovaj timer ali kasni 9000 ms zbog toga da bi se uskladile animacije 
 
 }
 
@@ -94,7 +94,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
      animation[0] = new QPropertyAnimation(label[0],"geometry");
      animation[0]->setDuration(3000);
      animation[0]->setStartValue(label[0]->geometry());
-     animation[0]->setKeyValueAt(0.3,QRect(155,50,50,50));
+     animation[0]->setKeyValueAt(0.3,QRect(155,50,50,50));  // prva animacija koja kocku od pocetne pozicije dje je i napravljena mrda u buffer 
      animation[0]->setEndValue(QRect(155,300,50,50));
      animation[0]->start();
 
@@ -107,7 +107,7 @@ PotrosacT->singleShot(9000,this,SLOT(pomjeriElementPotrosaca()));
 
      animation[1] = new QPropertyAnimation(label[1],"geometry");
      animation[1]->setDuration(3000);
-     animation[1]->setStartValue(label[1]->geometry());
+     animation[1]->setStartValue(label[1]->geometry());   // mrda u 2. polje i tako dalje 
      animation[1]->setKeyValueAt(0.3,QRect(215,50,50,50));
      animation[1]->setEndValue(QRect(215,300,50,50));
      animation[1]->start();
@@ -158,8 +158,8 @@ void Dialog::pomjeriElementPotrosaca()
 
     animation[5] = new QPropertyAnimation(label[0],"geometry");
     animation[5]->setDuration(3000);
-    animation[5]->setStartValue(label[0]->geometry());
-    animation[5]->setKeyValueAt(0.3,QRect(155,50,50,50));
+    animation[5]->setStartValue(label[0]->geometry());   // ovo su animacije koje mrdaju kocku iz buffera ka potrosacu ovaj citav slot (pomjeriElement Potrosaca) kasni za 9000ms 
+    animation[5]->setKeyValueAt(0.3,QRect(155,50,50,50));  // i tek tad pocinje s radom 
     animation[5]->setEndValue(QRect(500,30,50,50));
     animation[5]->start();
 
@@ -224,7 +224,7 @@ void Dialog::paintEvent(QPaintEvent *event){
 
     QPen Pen1;
     Pen1.setWidth(1);
-    Pen1.setColor(Qt::blue);
+    Pen1.setColor(Qt::blue);   // ovoje graficki dio gdje se crta kocka za proizvodjaca potrosaca, buffer polje itd 
     QPen Pen2;
     Pen2.setColor(Qt::black);
 
